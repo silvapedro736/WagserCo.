@@ -26,7 +26,7 @@ public class main_menu {
 
     public void main_frame(String user){
 
-        main_Frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        main_Frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         JPanel main_Panel = new JPanel(new BorderLayout());
 
@@ -34,9 +34,69 @@ public class main_menu {
 
         JMenuBar menu_bar = new JMenuBar();
 
+        JMenu menu_File = new JMenu("File");
+
         JMenu menu_options = new JMenu("Options");
 
+        JMenu menu_account = new JMenu("Account");
+
+        JMenuItem menu_log_off = new JMenuItem("Log Off");
+
+        JMenuItem menu_New = new JMenuItem("New");
+
+        JMenuItem menu_help = new JMenuItem("Help");
+
         JMenuItem menu_create_new_account = new JMenuItem("Create new Account");
+
+        menu_account.add(menu_log_off);
+
+        menu_File.add(menu_New);
+
+        BufferedReader reader = null;
+
+        String[] files = new String[5];
+
+        try {
+
+            File file_user_info = new File(System.getProperty("user.dir") + "/user/"+ user +".txt");
+
+            reader = new BufferedReader(new FileReader(file_user_info));
+
+            String line;
+
+
+
+            int i = 0;
+
+            while ((line = reader.readLine()) != null) {
+
+                files[i] = line;
+
+                i++;
+
+            }
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+        if (files[4].equals("true")){
+
+            menu_options.add(menu_create_new_account);
+
+        }
+
+        menu_options.add(menu_help);
 
         //------------------------------------------------------------------------------
 
@@ -51,11 +111,39 @@ public class main_menu {
             }
         });
 
+        menu_log_off.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                main_Frame.dispose();
+                main_Class run_main = new main_Class();
+
+                String[] args = new String[0];
+
+                run_main.main(args);
+            }
+        });
+
+        menu_New.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                new_file run_new_file = new new_file();
+
+                String[] args = new String[0];
+
+                run_new_file.main(args);
+
+
+            }
+        });
+
         //------------------------------------------------------------------------------
 
-        menu_options.add(menu_create_new_account);
+        menu_bar.add(menu_File);
 
         menu_bar.add(menu_options);
+
+        menu_bar.add(menu_account);
 
         //------------------------------------------------------------------------------
 
@@ -84,7 +172,7 @@ public class main_menu {
         File file = new File(System.getProperty("user.dir") + file_Name);
 
         JFrame make_Properties = new JFrame("WagserCo.");
-        make_Properties.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        make_Properties.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         JPanel main_Panel = new JPanel(new BorderLayout());
 
@@ -204,6 +292,7 @@ public class main_menu {
         Button_Create.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 String Username = TextField_Username.getText();
 
                 try {

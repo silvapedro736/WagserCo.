@@ -44,7 +44,7 @@ public class initializer {
 
             JFrame Login = new JFrame("WagserCo.");
 
-            Login.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            Login.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
             JPanel main_Panel = new JPanel(new BorderLayout());
 
@@ -163,6 +163,9 @@ public class initializer {
 
          */
 
+        File dir = new File("user");
+        dir.mkdir();
+
 
         String file_Name = "info_logs.txt";
 
@@ -184,7 +187,7 @@ public class initializer {
         //------------------------------------------------------------------------------
 
         JFrame make_Properties = new JFrame("WagserCo.");
-        make_Properties.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        make_Properties.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         JPanel main_Panel = new JPanel(new BorderLayout());
 
