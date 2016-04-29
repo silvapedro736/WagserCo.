@@ -13,11 +13,20 @@ import java.security.NoSuchAlgorithmException;
  */
 public class main_menu {
 
+    public static person current_User;
+
+    public static user current_user;
+
     public static main_menu run = new main_menu();
 
-    public static void main(String[] args){
+    public static void main(String[] args, person Current_User, user current_user){
 
         //System.out.println(args[0]);
+
+        current_User = Current_User;
+
+        current_user = current_user;
+
         run.main_frame(args[0]);
 
     }
@@ -34,11 +43,15 @@ public class main_menu {
 
         JMenuBar menu_bar = new JMenuBar();
 
+        //------------------------------------------------------------------------------
+
         JMenu menu_File = new JMenu("File");
 
         JMenu menu_options = new JMenu("Options");
 
         JMenu menu_account = new JMenu("Account");
+
+        //------------------------------------------------------------------------------
 
         JMenuItem menu_log_off = new JMenuItem("Log Off");
 
@@ -48,13 +61,69 @@ public class main_menu {
 
         JMenuItem menu_create_new_account = new JMenuItem("Create new Account");
 
-        menu_account.add(menu_log_off);
+        JMenu menu_Edit_Information = new JMenu("Edit Account Info");
+
+        JMenuItem menu_Edit_Name = new JMenuItem("Name");
+
+        JMenuItem menu_Edit_DOB = new JMenuItem("Date of Birth");
+
+        JMenuItem menu_Edit_Email = new JMenuItem("Email");
+
+        //------------------------------------------------------------------------------
 
         menu_File.add(menu_New);
 
+        menu_Edit_Information.add(menu_Edit_Name);
+
+        menu_Edit_Information.add(menu_Edit_DOB);
+
+        menu_Edit_Information.add(menu_Edit_Email);
+
+        menu_account.add(menu_Edit_Information);
+
+        menu_account.addSeparator();
+
+        menu_account.add(menu_log_off);
+
+        //------------------------------------------------------------------------------
+
         BufferedReader reader = null;
 
-        String[] files = new String[5];
+        String[] files = new String[8];
+
+        int counts = 0;
+
+        try {
+
+            File file3 = new File(System.getProperty("user.dir") + "/user/" + user + ".txt");
+
+            reader = new BufferedReader(new FileReader(file3));
+
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+
+                files[counts] = line;
+
+                counts++;
+
+            }
+
+        } catch (IOException f) {
+
+            f.printStackTrace();
+
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException f) {
+                f.printStackTrace();
+            }
+
+
+        }
+
+        String[] filesss = new String[counts];
 
         try {
 
@@ -96,6 +165,9 @@ public class main_menu {
 
         }
 
+        //------------------------------------------------------------------------------
+
+        menu_options.addSeparator();
         menu_options.add(menu_help);
 
         //------------------------------------------------------------------------------
@@ -137,13 +209,40 @@ public class main_menu {
             }
         });
 
+        menu_Edit_Name.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                run.edit_Person_Info(1);
+
+            }
+        });
+
+        menu_Edit_DOB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                run.edit_Person_Info(2);
+
+            }
+        });
+
+        menu_Edit_Email.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                run.edit_Person_Info(3);
+
+            }
+        });
+
         //------------------------------------------------------------------------------
 
         menu_bar.add(menu_File);
 
-        menu_bar.add(menu_options);
-
         menu_bar.add(menu_account);
+
+        menu_bar.add(menu_options);
 
         //------------------------------------------------------------------------------
 
@@ -171,8 +270,8 @@ public class main_menu {
 
         File file = new File(System.getProperty("user.dir") + file_Name);
 
-        JFrame make_Properties = new JFrame("WagserCo.");
-        make_Properties.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        JFrame edit_Info = new JFrame("WagserCo.");
+        edit_Info.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         JPanel main_Panel = new JPanel(new BorderLayout());
 
@@ -271,21 +370,21 @@ public class main_menu {
         main_Panel.add(center, BorderLayout.CENTER);
         main_Panel.add(card_Button, BorderLayout.SOUTH);
 
-        make_Properties.getContentPane().add(main_Panel);
+        edit_Info.getContentPane().add(main_Panel);
 
         //------------------------------------------------------------------------------
 
         Dimension ss = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension frameSize = new Dimension(500, 200);
 
-        make_Properties.setBounds(ss.width / 2 - frameSize.width / 2,
+        edit_Info.setBounds(ss.width / 2 - frameSize.width / 2,
                 ss.height / 2 - frameSize.height / 2,
                 frameSize.width, frameSize.height);
 
-        make_Properties.setResizable(false);
-        make_Properties.setMinimumSize(frameSize);
-        make_Properties.setVisible(true);
-        make_Properties.pack();
+        edit_Info.setResizable(false);
+        edit_Info.setMinimumSize(frameSize);
+        edit_Info.setVisible(true);
+        edit_Info.pack();
 
         //------------------------------------------------------------------------------
 
@@ -315,6 +414,7 @@ public class main_menu {
                         System.out.println(f);
                     }
 
+
                     bufferedWriter.close();
                 } catch (IOException ex) {
                     System.out.println(
@@ -322,6 +422,7 @@ public class main_menu {
                                     + file_Name + "'");
 
                 }
+
 
                 String admin_bool = "false";
 
@@ -373,11 +474,144 @@ public class main_menu {
 
                 }
 
-                make_Properties.dispose();
+                edit_Info.dispose();
 
             }
 
         });
+
+    }
+
+    public void edit_Person_Info(int edit){
+
+        String label1 = null;
+        ActionListener action = null;
+
+        if (edit == 1){
+
+            //Name
+            label1 = "Name";
+
+        }
+
+        if (edit == 2){
+
+            //Date of Birth
+            label1 = "Date of Birth";
+
+        }
+
+        if (edit == 3){
+
+            //Email
+            label1 = "Email";
+
+        }
+
+
+        JFrame edit_Info = new JFrame("WagserCo.");
+        edit_Info.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        JPanel main_Panel = new JPanel(new BorderLayout());
+
+        JPanel center = new JPanel(new BorderLayout());
+
+        JPanel card_Title = new JPanel();
+        JPanel card_Username = new JPanel(new BorderLayout());
+        JPanel card_Button = new JPanel(new BorderLayout());
+
+
+        //------------------------------------------------------------------------------
+
+        JLabel label_Title = new JLabel("WagserCo.");
+        JLabel label_Username = new JLabel(label1);
+
+        JTextField TextField_Username = new JTextField();
+
+        JButton Button_Create = new JButton("Edit Information");
+
+        //------------------------------------------------------------------------------
+
+        label_Title.setFont(new Font("Serif", Font.PLAIN, 35));
+        label_Username.setFont(new Font("Serif", Font.PLAIN, 20));
+
+        Button_Create.setFont(new Font("Serif", Font.PLAIN, 25));
+
+        //------------------------------------------------------------------------------
+
+        card_Title.add(label_Title);
+
+        card_Username.add(label_Username, BorderLayout.NORTH);
+        card_Username.add(TextField_Username, BorderLayout.CENTER);
+
+        center.add(card_Username, BorderLayout.NORTH);
+
+        card_Button.add(Button_Create);
+
+        main_Panel.add(card_Title, BorderLayout.NORTH);
+        main_Panel.add(center, BorderLayout.CENTER);
+        main_Panel.add(card_Button, BorderLayout.SOUTH);
+
+        edit_Info.getContentPane().add(main_Panel);
+
+        if (edit == 1){
+
+            //Name
+            action = new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                    current_User.change_name(label_Username.getText());
+                    current_User.write(current_User);
+
+                }
+            };
+
+        }
+
+        if (edit == 2){
+
+            //Date of Birth
+            action = new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                    current_User.change_dob(label_Username.getText());
+                    current_User.write(current_User);
+
+                }
+            };
+
+        }
+
+        if (edit == 3){
+
+            //Email
+            action = new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                    current_User.change_email(label_Username.getText());
+                    current_User.write(current_User);
+                }
+            };
+
+        }
+
+        //------------------------------------------------------------------------------
+
+        Dimension ss = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension frameSize = new Dimension(500, 150);
+
+        edit_Info.setBounds(ss.width / 2 - frameSize.width / 2,
+                ss.height / 2 - frameSize.height / 2,
+                frameSize.width, frameSize.height);
+
+        edit_Info.setResizable(false);
+        edit_Info.setMinimumSize(frameSize);
+        edit_Info.setVisible(true);
+        edit_Info.pack();
+
 
     }
 
