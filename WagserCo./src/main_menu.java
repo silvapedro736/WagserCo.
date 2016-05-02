@@ -73,7 +73,7 @@ public class main_menu {
 
         menu_File.add(menu_New);
 
-        menu_Edit_Information.add(menu_Edit_Name);
+        //menu_Edit_Information.add(menu_Edit_Name);
 
         menu_Edit_Information.add(menu_Edit_DOB);
 
@@ -317,7 +317,7 @@ public class main_menu {
 
         BufferedReader reader = null;
 
-        String[] files = new String[5];
+        String[] files = new String[8];
 
         try {
 
@@ -404,8 +404,10 @@ public class main_menu {
 
 
                     bufferedWriter.newLine();
+                    bufferedWriter.flush();
                     bufferedWriter.write(Username);
                     bufferedWriter.newLine();
+                    bufferedWriter.flush();
                     try {
                         MessageDigest md = MessageDigest.getInstance("SHA-256");
                         md.update(TextField_Password.getText().getBytes());
@@ -413,6 +415,7 @@ public class main_menu {
                     } catch (NoSuchAlgorithmException f) {
                         System.out.println(f);
                     }
+                    bufferedWriter.flush();
 
 
                     bufferedWriter.close();
@@ -561,7 +564,7 @@ public class main_menu {
                 @Override
                 public void actionPerformed(ActionEvent e) {
 
-                    current_User.change_name(label_Username.getText());
+                    current_User.change_name(TextField_Username.getText());
                     current_User.write(current_User);
 
                 }
@@ -576,7 +579,7 @@ public class main_menu {
                 @Override
                 public void actionPerformed(ActionEvent e) {
 
-                    current_User.change_dob(label_Username.getText());
+                    current_User.change_dob(TextField_Username.getText());
                     current_User.write(current_User);
 
                 }
@@ -591,12 +594,14 @@ public class main_menu {
                 @Override
                 public void actionPerformed(ActionEvent e) {
 
-                    current_User.change_email(label_Username.getText());
+                    current_User.change_email(TextField_Username.getText());
                     current_User.write(current_User);
                 }
             };
 
         }
+
+        Button_Create.addActionListener(action);
 
         //------------------------------------------------------------------------------
 

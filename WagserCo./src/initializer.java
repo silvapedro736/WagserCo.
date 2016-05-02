@@ -434,7 +434,44 @@ public class initializer {
 
                     File file = new File(System.getProperty("user.dir") + "/person/" + file_Name);
 
-                    if (!file.exists()) {
+                    BufferedReader reader2 = null;
+
+                    int count2 = 0;
+
+                    String[] file_user_info = new String[8];
+
+                    try {
+
+                        File file3 = new File(System.getProperty("user.dir") + "/user/" + user + ".txt");
+
+                        reader2 = new BufferedReader(new FileReader(file3));
+
+                        String line;
+
+                        while ((line = reader2.readLine()) != null) {
+
+                            file_user_info[count2] = line;
+                            count2++;
+
+                        }
+
+                    } catch (IOException f) {
+
+                        f.printStackTrace();
+
+                    } finally {
+                        try {
+                            reader2.close();
+                        } catch (IOException f) {
+                            f.printStackTrace();
+                        }
+
+
+                    }
+
+                    //work HERE!
+
+                    if (count2 < 7) {
 
                         check_first = false;
                         a.dispose();
@@ -443,25 +480,25 @@ public class initializer {
 
                     } else {
 
-                        BufferedReader readers = null;
+                        BufferedReader reader3 = null;
 
-                        String[] filess = new String[8];
+                        String[] files2 = new String[8];
 
                         try {
 
-                            File file2 = new File(System.getProperty("user.dir") + "/person/" + file_Name);
+                            File file2 = new File(System.getProperty("user.dir") + "/person/" + file_user_info[6]);
 
-                            readers = new BufferedReader(new FileReader(file2));
+                            reader3 = new BufferedReader(new FileReader(file2));
 
                             String line;
-                            int counts = 0;
-                            //System.out.println(files);
 
-                            while ((line = readers.readLine()) != null) {
+                            int count3 = 0;
 
-                                filess[counts] = line;
+                            while ((line = reader3.readLine()) != null) {
 
-                                counts++;
+                                files2[count3] = line;
+
+                                count3++;
 
                             }
 
@@ -469,63 +506,31 @@ public class initializer {
 
                             f.printStackTrace();
 
-                        } finally {
+                        }
+
+                        finally {
+
                             try {
-                                reader.close();
+
+                                reader3.close();
+
                             } catch (IOException f) {
+
                                 f.printStackTrace();
-                            }
 
+                            }
 
                         }
 
-                        BufferedReader readerss = null;
-
-                        String[] filesss = new String[5];
-
-                        try {
-
-                            File file_user_info = new File(System.getProperty("user.dir") + "/user/"+ user +".txt");
-
-                            readerss = new BufferedReader(new FileReader(file_user_info));
-
-                            String line;
-
-
-
-                            int f = 0;
-
-                            while ((line = readerss.readLine()) != null) {
-
-                                filesss[f] = line;
-
-                                f++;
-
-                            }
-
-                        } catch (IOException e) {
-
-                            e.printStackTrace();
-
-                        } finally {
-                            try {
-                                readerss.close();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-
-
-                        }
-
-                        if (files[4].equals("true")){
+                        if (file_user_info[4].equals("true")){
 
                             bool_Admin = true;
 
                         }
 
-                        person current_Person = new person(filess[3], filess[5]);
+                        person current_Person = new person(files2[3], files2[5]);
 
-                        current_Person.change_email(filess[7]);
+                        current_Person.change_email(files2[7]);
 
                         user current_User = new user(user, pass, bool_Admin, current_Person);
 
@@ -535,8 +540,6 @@ public class initializer {
                         a.dispose();
 
                     }
-
-
 
                 }
 
