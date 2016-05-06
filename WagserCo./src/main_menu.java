@@ -51,6 +51,8 @@ public class main_menu {
 
         JMenu menu_account = new JMenu("Account");
 
+        JMenu menu_edit = new JMenu("Edit");
+
         //------------------------------------------------------------------------------
 
         JMenuItem menu_log_off = new JMenuItem("Log Off");
@@ -69,6 +71,14 @@ public class main_menu {
 
         JMenuItem menu_Edit_Email = new JMenuItem("Email");
 
+        JMenuItem menu_New_Truck = new JMenuItem("New Truck");
+
+        JMenuItem menu_New_Driver = new JMenuItem("New Driver");
+
+        JMenuItem menu_Edit_Truck = new JMenuItem("Edit Truck");
+
+        JMenuItem menu_Edit_Driver = new JMenuItem("Edit Driver");
+
         //------------------------------------------------------------------------------
 
         menu_File.add(menu_New);
@@ -85,7 +95,19 @@ public class main_menu {
 
         menu_account.add(menu_log_off);
 
+        menu_edit.add(menu_New_Driver);
+
+        menu_edit.add(menu_New_Truck);
+
+        menu_edit.addSeparator();
+
+        menu_edit.add(menu_Edit_Driver);
+
+        menu_edit.add(menu_Edit_Truck);
+
         //------------------------------------------------------------------------------
+
+        menu_bar.add(menu_File);
 
         BufferedReader reader = null;
 
@@ -163,6 +185,8 @@ public class main_menu {
 
             menu_options.add(menu_create_new_account);
 
+            menu_bar.add(menu_edit);
+
         }
 
         //------------------------------------------------------------------------------
@@ -236,9 +260,21 @@ public class main_menu {
             }
         });
 
-        //------------------------------------------------------------------------------
+        menu_New_Truck.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                run.create_Truck();
+            }
+        });
 
-        menu_bar.add(menu_File);
+        menu_Edit_Truck.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                run.edit_Truck();
+            }
+        });
+
+        //------------------------------------------------------------------------------
 
         menu_bar.add(menu_account);
 
@@ -606,7 +642,7 @@ public class main_menu {
         //------------------------------------------------------------------------------
 
         Dimension ss = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension frameSize = new Dimension(500, 150);
+        Dimension frameSize = new Dimension(500, 170);
 
         edit_Info.setBounds(ss.width / 2 - frameSize.width / 2,
                 ss.height / 2 - frameSize.height / 2,
@@ -617,6 +653,302 @@ public class main_menu {
         edit_Info.setVisible(true);
         edit_Info.pack();
 
+
+    }
+
+    public void create_Truck(){
+
+        JFrame new_Truck = new JFrame("WagserCo.");
+        new_Truck.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        JPanel main_Panel = new JPanel(new BorderLayout());
+
+        JPanel north_Panel = new JPanel();
+        JPanel center_Panel = new JPanel(new BorderLayout());
+        JPanel south_Panel = new JPanel(new BorderLayout());
+
+        JPanel center_Panel_North = new JPanel(new BorderLayout());
+        JPanel center_Panel_Center = new JPanel(new BorderLayout());
+
+        //------------------------------------------------------------------------------
+
+        JLabel label_Title1 = new JLabel("WagserCo.");
+        JLabel label_Brand = new JLabel("Brand");
+        JLabel label_License_Plate = new JLabel("License Plate");
+
+        JTextField textField_Brand = new JTextField();
+        JTextField textField_License_Plate = new JTextField();
+
+        JButton button_Create = new JButton("Create Truck");
+
+        //------------------------------------------------------------------------------
+
+        label_Title1.setFont(new Font("Serif", Font.PLAIN, 35));
+
+        label_Brand.setFont(new Font("Serif", Font.PLAIN, 20));
+        label_License_Plate.setFont(new Font("Serif", Font.PLAIN, 20));
+
+        textField_Brand.setFont(new Font("Serif", Font.PLAIN, 20));
+        textField_License_Plate.setFont(new Font("Serif", Font.PLAIN, 20));
+
+        button_Create.setFont(new Font("Serif", Font.PLAIN, 25));
+
+        //------------------------------------------------------------------------------
+
+        north_Panel.add(label_Title1);
+
+        center_Panel_North.add(label_Brand, BorderLayout.CENTER);
+        center_Panel_North.add(textField_Brand, BorderLayout.SOUTH);
+
+        center_Panel_Center.add(label_License_Plate, BorderLayout.CENTER);
+        center_Panel_Center.add(textField_License_Plate, BorderLayout.SOUTH);
+
+        south_Panel.add(button_Create, BorderLayout.CENTER);
+
+        //------------------------------------------------------------------------------
+
+        center_Panel.add(center_Panel_North, BorderLayout.NORTH);
+        center_Panel.add(center_Panel_Center, BorderLayout.CENTER);
+
+        main_Panel.add(north_Panel, BorderLayout.NORTH);
+        main_Panel.add(center_Panel, BorderLayout.CENTER);
+        main_Panel.add(south_Panel, BorderLayout.SOUTH);
+
+        //------------------------------------------------------------------------------
+
+        new_Truck.add(main_Panel);
+
+        Dimension ss = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension frameSize = new Dimension(500, 200);
+
+        new_Truck.setBounds(ss.width / 2 - frameSize.width / 2,
+                ss.height / 2 - frameSize.height / 2,
+                frameSize.width, frameSize.height);
+
+        new_Truck.setResizable(false);
+        new_Truck.setMinimumSize(frameSize);
+        new_Truck.setVisible(true);
+        new_Truck.pack();
+
+        button_Create.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                truck[] trucks = new truck[1];
+
+                trucks[0] = new truck(textField_Brand.getText(), textField_License_Plate.getText());
+
+                new_Truck.dispose();
+
+            }
+        });
+
+    }
+
+    public void edit_Truck(){
+
+        String temp;
+        String temp2;
+
+        File folder = new File(System.getProperty("user.dir") + "/truck");
+        File[] listOfFiles = folder.listFiles();
+
+        final DefaultListModel truckList = new DefaultListModel();
+
+        for (int i = 0; i < listOfFiles.length; i++){
+
+            temp = listOfFiles[i].getName();
+            temp2 = temp.replace(".txt", "");
+
+            truckList.addElement(temp2);
+
+        }
+
+        //------------------------------------------------------------------------------
+
+        JFrame edit_Truck = new JFrame("WagserCo.");
+        edit_Truck.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        JPanel main_Panel = new JPanel(new BorderLayout());
+
+        edit_Truck.getContentPane().add(main_Panel);
+
+        JPanel north_Panel = new JPanel();
+        JPanel center_Panel = new JPanel(new FlowLayout());
+        JPanel south_Panel = new JPanel(new BorderLayout());
+
+        //------------------------------------------------------------------------------
+
+        JLabel label_Title = new JLabel("WagserCo.");
+        JLabel label_Title1 = new JLabel("Edit Truck");
+
+        JList list_Truck = new JList(truckList);
+
+        JButton button_Edit = new JButton("Edit");
+
+        //------------------------------------------------------------------------------
+
+        label_Title.setFont(new Font("Serif", Font.PLAIN, 35));
+        label_Title1.setFont(new Font("Serif", Font.PLAIN, 25));
+
+        list_Truck.setFont(new Font("Serif", Font.PLAIN, 17));
+
+        button_Edit.setFont(new Font("Serif", Font.PLAIN, 25));
+
+        list_Truck.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list_Truck.setLayoutOrientation(JList.VERTICAL);
+        list_Truck.setSelectedIndex(0);
+
+
+        //------------------------------------------------------------------------------
+
+        north_Panel.add(label_Title);
+        //north_Panel.add(label_Title1, BorderLayout.SOUTH);
+
+        center_Panel.add(list_Truck);
+        center_Panel.add(button_Edit);
+        center_Panel.setComponentOrientation(
+                ComponentOrientation.LEFT_TO_RIGHT);
+
+        //south_Panel.add(button_Edit);
+
+        //------------------------------------------------------------------------------
+
+        main_Panel.add(north_Panel, BorderLayout.NORTH);
+        main_Panel.add(center_Panel, BorderLayout.CENTER);
+        main_Panel.add(south_Panel, BorderLayout.SOUTH);
+
+        //------------------------------------------------------------------------------
+
+        Dimension ss = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension frameSize = new Dimension(200, 200);
+
+        edit_Truck.setBounds(ss.width / 2 - frameSize.width / 2,
+                ss.height / 2 - frameSize.height / 2,
+                frameSize.width, frameSize.height);
+
+        edit_Truck.setResizable(false);
+        edit_Truck.setMinimumSize(frameSize);
+        edit_Truck.setVisible(true);
+        edit_Truck.pack();
+
+        button_Edit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                int truck_LP_int = list_Truck.getSelectedIndex();
+                File truck_file = listOfFiles[truck_LP_int];
+                //String truck_file_name = truck_file.getName().replace(".txt", "");
+
+                truck temp = new truck(truck_file);
+
+                run.edit_Truck_step2(temp);
+
+                edit_Truck.dispose();
+
+            }
+        });
+
+    }
+
+    public void edit_Truck_step2(truck edit_truck){
+
+        //System.out.println(edit_truck.get_License_Plate());
+
+        JFrame edit_Truck = new JFrame("WagserCo.");
+        edit_Truck.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        JPanel main_Panel = new JPanel(new BorderLayout());
+        edit_Truck.getContentPane().add(main_Panel);
+
+        JPanel north_Panel = new JPanel();
+        JPanel center_Panel = new JPanel(new BorderLayout());
+        JPanel south_Panel = new JPanel();
+
+        JPanel center_Panel_North = new JPanel();
+        JPanel center_Panel_South = new JPanel(new BorderLayout());
+        JPanel center_Panel_South_North = new JPanel(new BorderLayout());
+        JPanel center_Panel_South_South = new JPanel(new BorderLayout());
+
+        //------------------------------------------------------------------------------
+
+        JLabel label_Title = new JLabel(edit_truck.get_License_Plate());
+        JLabel label_show_brand = new JLabel(edit_truck.get_Brand());
+
+        JLabel label_edit_Tailgate_License_Plate = new JLabel("Tailgate License Plate: ");
+        JLabel label_edit_Tailgate_brand = new JLabel("Tailgate Brand: ");
+
+        JTextField Textfield_Tailgate_License_Plate = new JTextField(edit_truck.get_Tailgate_License_Plate());
+        JTextField Textfield_Tailgate_brand = new JTextField(edit_truck.get_Tailgate_Brand());
+
+        JButton Button_edit = new JButton("Edit");
+
+        //------------------------------------------------------------------------------
+
+        label_Title.setFont(new Font("Serif", Font.PLAIN, 35));
+        label_show_brand.setFont(new Font("Serif", Font.PLAIN, 25));
+        label_edit_Tailgate_License_Plate.setFont(new Font("Serif", Font.PLAIN, 20));
+        label_edit_Tailgate_brand.setFont(new Font("Serif", Font.PLAIN, 20));
+
+        Textfield_Tailgate_License_Plate.setFont(new Font("Serif", Font.PLAIN, 20));
+        Textfield_Tailgate_brand.setFont(new Font("Serif", Font.PLAIN, 20));
+
+        Button_edit.setFont(new Font("Serif", Font.PLAIN, 25));
+
+        //------------------------------------------------------------------------------
+
+        north_Panel.add(label_Title);
+
+        center_Panel_North.add(label_show_brand);
+
+        center_Panel_South_North.add(label_edit_Tailgate_License_Plate, BorderLayout.NORTH);
+        center_Panel_South_North.add(Textfield_Tailgate_License_Plate, BorderLayout.CENTER);
+
+        center_Panel_South_South.add(label_edit_Tailgate_brand, BorderLayout.NORTH);
+        center_Panel_South_South.add(Textfield_Tailgate_brand, BorderLayout.CENTER);
+
+        south_Panel.add(Button_edit);
+
+        //------------------------------------------------------------------------------
+
+        main_Panel.add(north_Panel, BorderLayout.NORTH);
+
+        center_Panel.add(center_Panel_North, BorderLayout.NORTH);
+
+        center_Panel_South.add(center_Panel_South_North, BorderLayout.NORTH);
+        center_Panel_South.add(center_Panel_South_South, BorderLayout.CENTER);
+
+        center_Panel.add(center_Panel_South, BorderLayout.CENTER);
+
+        main_Panel.add(center_Panel, BorderLayout.CENTER);
+
+        main_Panel.add(south_Panel, BorderLayout.SOUTH);
+
+        //------------------------------------------------------------------------------
+
+        Dimension ss = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension frameSize = new Dimension(500, 200);
+
+        edit_Truck.setBounds(ss.width / 2 - frameSize.width / 2,
+                ss.height / 2 - frameSize.height / 2,
+                frameSize.width, frameSize.height);
+
+        edit_Truck.setResizable(false);
+        edit_Truck.setMinimumSize(frameSize);
+        edit_Truck.setVisible(true);
+        edit_Truck.pack();
+
+        Button_edit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                edit_truck.change_tailgate_License_Plate(Textfield_Tailgate_License_Plate.getText());
+                edit_truck.change_tailgate_Brand(Textfield_Tailgate_brand.getText());
+
+                edit_truck.write();
+
+            }
+        });
 
     }
 

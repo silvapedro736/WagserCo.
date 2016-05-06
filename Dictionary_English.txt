@@ -1,0 +1,24 @@
+Dictionary - English
+—————————————————————
+Initializer
+—————————————————————
+init_properties
+—————————————————————
+Username:
+Password:
+—————————————————————
+properties_make
+—————————————————————
+Username:
+Password:
+Create Account
+—————————————————————
+first_login
+—————————————————————
+Name:
+Date of Birth:
+Email:
+—————————————————————
+Main Menu
+—————————————————————
+

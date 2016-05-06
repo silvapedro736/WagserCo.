@@ -151,12 +151,8 @@ public class initializer {
 
         /**
 
-        main_menu main_m = new main_menu();
-
         File dir = new File("user");
         dir.mkdir();
-
-        main_m.create_Account();
 
          */
 
@@ -165,6 +161,15 @@ public class initializer {
 
         File dirs = new File("person");
         dirs.mkdir();
+
+        File dirs2 = new File("report");
+        dirs2.mkdir();
+
+        File dirs3 = new File("driver");
+        dirs3.mkdir();
+
+        File dirs4 = new File("truck");
+        dirs4.mkdir();
 
         String file_Name = "info_logs.txt";
 
@@ -333,6 +338,12 @@ public class initializer {
 
                 make_Properties.dispose();
 
+                main_Class run_main = new main_Class();
+
+                String[] args = new String[0];
+
+                run_main.main(args);
+
             }
 
         });
@@ -469,14 +480,12 @@ public class initializer {
 
                     }
 
-                    //work HERE!
 
                     if (count2 < 7) {
 
                         check_first = false;
                         a.dispose();
                         run.first_login(user, pass);
-                        //while(!check_first){}
 
                     } else {
 

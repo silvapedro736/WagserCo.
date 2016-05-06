@@ -6,10 +6,9 @@ public class driver {
     person person_info;
     truck truck_info;
 
-    public driver(person person_info, truck truck_info){
+    public driver(person person_info) {
 
         this.person_info = person_info;
-        this.truck_info = truck_info;
 
     }
 
