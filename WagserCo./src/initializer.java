@@ -537,9 +537,7 @@ public class initializer {
 
                         }
 
-                        person current_Person = new person(files2[3], files2[5]);
-
-                        current_Person.change_email(files2[7]);
+                        person current_Person = new person(files2[3], files2[5], files2[7]);
 
                         user current_User = new user(user, pass, bool_Admin, current_Person);
 
@@ -805,7 +803,7 @@ public class initializer {
 
                 }
 
-                person current_Person = new person(files[3], files[5]);
+                person current_Person = new person(files[3], files[5], files[7]);
 
                 current_Person.change_email(files[7]);
 

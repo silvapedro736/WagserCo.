@@ -7,6 +7,7 @@ import java.awt.event.ItemListener;
 import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Driver;
 
 /**
  * Created by pedrosilva on 4/20/16.
@@ -271,6 +272,24 @@ public class main_menu {
             @Override
             public void actionPerformed(ActionEvent e) {
                 run.edit_Truck();
+            }
+        });
+
+        menu_New_Driver.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                run.create_Driver();
+
+            }
+        });
+
+        menu_Edit_Driver.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                run.edit_Driver();
+
             }
         });
 
@@ -796,8 +815,11 @@ public class main_menu {
         button_Edit.setFont(new Font("Serif", Font.PLAIN, 25));
 
         list_Truck.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list_Truck.setVisibleRowCount(5);
         list_Truck.setLayoutOrientation(JList.VERTICAL);
         list_Truck.setSelectedIndex(0);
+
+        JScrollPane scroll = new JScrollPane(list_Truck);
 
 
         //------------------------------------------------------------------------------
@@ -805,7 +827,7 @@ public class main_menu {
         north_Panel.add(label_Title);
         //north_Panel.add(label_Title1, BorderLayout.SOUTH);
 
-        center_Panel.add(list_Truck);
+        center_Panel.add(scroll);
         center_Panel.add(button_Edit);
         center_Panel.setComponentOrientation(
                 ComponentOrientation.LEFT_TO_RIGHT);
@@ -946,6 +968,582 @@ public class main_menu {
                 edit_truck.change_tailgate_Brand(Textfield_Tailgate_brand.getText());
 
                 edit_truck.write();
+
+            }
+        });
+
+    }
+
+    public void create_Driver(){
+
+        JFrame new_Driver = new JFrame("WagserCo.");
+        new_Driver.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        JPanel main_Panel = new JPanel(new BorderLayout());
+
+        JPanel north_Panel = new JPanel();
+        JPanel center_Panel = new JPanel(new BorderLayout());
+        JPanel south_Panel = new JPanel(new BorderLayout());
+
+        JPanel center_Panel_North = new JPanel(new BorderLayout());
+        JPanel center_Panel_Center = new JPanel(new BorderLayout());
+
+        //------------------------------------------------------------------------------
+
+        JLabel label_Title1 = new JLabel("WagserCo.");
+        JButton button_From_new = new JButton("Create New");
+        JButton button_Import = new JButton("Import From User");
+
+        //------------------------------------------------------------------------------
+
+        label_Title1.setFont(new Font("Serif", Font.PLAIN, 35));
+
+        button_From_new.setFont(new Font("Serif", Font.PLAIN, 25));
+        button_Import.setFont(new Font("Serif", Font.PLAIN, 25));
+
+        //------------------------------------------------------------------------------
+
+        north_Panel.add(label_Title1);
+
+        center_Panel_North.add(button_From_new, BorderLayout.CENTER);
+
+        center_Panel_Center.add(button_Import, BorderLayout.CENTER);
+
+        //------------------------------------------------------------------------------
+
+        center_Panel.add(center_Panel_North, BorderLayout.NORTH);
+        center_Panel.add(center_Panel_Center, BorderLayout.CENTER);
+
+        main_Panel.add(north_Panel, BorderLayout.NORTH);
+        main_Panel.add(center_Panel, BorderLayout.CENTER);
+
+        //------------------------------------------------------------------------------
+
+        new_Driver.add(main_Panel);
+
+        Dimension ss = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension frameSize = new Dimension(400, 100);
+
+        new_Driver.setBounds(ss.width / 2 - frameSize.width / 2,
+                ss.height / 2 - frameSize.height / 2,
+                frameSize.width, frameSize.height);
+
+        new_Driver.setResizable(false);
+        new_Driver.setMinimumSize(frameSize);
+        new_Driver.setVisible(true);
+        new_Driver.pack();
+
+        button_From_new.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+
+                new_Driver.dispose();
+
+                run.newPerson();
+
+            }
+        });
+
+        button_Import.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                new_Driver.dispose();
+
+                run.newDriver();
+
+            }
+        });
+
+    }
+
+    public void newPerson(){
+
+        //System.out.println("Testing New Person");
+
+        JFrame first_Login = new JFrame("WagserCo.");
+        first_Login.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        JPanel main_Panel = new JPanel(new BorderLayout());
+
+        JPanel center = new JPanel(new BorderLayout());
+
+        JPanel card_Title = new JPanel();
+        JPanel card_Name = new JPanel(new BorderLayout());
+        JPanel card_DOB = new JPanel(new BorderLayout());
+        JPanel card_Email = new JPanel(new BorderLayout());
+        JPanel card_Button = new JPanel(new BorderLayout());
+
+
+        //------------------------------------------------------------------------------
+
+        JLabel label_Title = new JLabel("WagserCo.");
+        JLabel label_Name = new JLabel("Name:");
+        JLabel label_DOB = new JLabel("Date of Birth:");
+        JLabel label_Email = new JLabel("Email:");
+
+        JTextField TextField_Name = new JTextField();
+        JTextField TextField_DOB = new JTextField();
+        JTextField TextField_Email = new JTextField();
+
+        JButton Button_Create = new JButton("Create");
+
+        //------------------------------------------------------------------------------
+
+        label_Title.setFont(new Font("Serif", Font.PLAIN, 35));
+        label_Name.setFont(new Font("Serif", Font.PLAIN, 20));
+        label_DOB.setFont(new Font("Serif", Font.PLAIN, 20));
+        label_Email.setFont(new Font("Serif", Font.PLAIN, 20));
+
+        Button_Create.setFont(new Font("Serif", Font.PLAIN, 25));
+
+        //------------------------------------------------------------------------------
+
+        card_Title.add(label_Title);
+
+        card_Name.add(label_Name, BorderLayout.NORTH);
+        card_DOB.add(label_DOB, BorderLayout.NORTH);
+        card_Email.add(label_Email, BorderLayout.NORTH);
+        card_Name.add(TextField_Name, BorderLayout.CENTER);
+        card_DOB.add(TextField_DOB, BorderLayout.CENTER);
+        card_Email.add(TextField_Email, BorderLayout.CENTER);
+
+        center.add(card_Name, BorderLayout.NORTH);
+        center.add(card_DOB, BorderLayout.CENTER);
+        center.add(card_Email, BorderLayout.SOUTH);
+
+        card_Button.add(Button_Create);
+
+        main_Panel.add(card_Title, BorderLayout.NORTH);
+        main_Panel.add(center, BorderLayout.CENTER);
+        main_Panel.add(card_Button, BorderLayout.SOUTH);
+
+        first_Login.getContentPane().add(main_Panel);
+
+        //------------------------------------------------------------------------------
+
+        Dimension ss = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension frameSize = new Dimension(500, 250);
+
+        first_Login.setBounds(ss.width / 2 - frameSize.width / 2,
+                ss.height / 2 - frameSize.height / 2,
+                frameSize.width, frameSize.height);
+
+        first_Login.setResizable(false);
+        first_Login.setMinimumSize(frameSize);
+        first_Login.setVisible(true);
+        first_Login.pack();
+
+        Button_Create.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                String file_User = TextField_Name + ".txt";
+
+                File file2 = new File(System.getProperty("user.dir") + "/user/" + file_User);
+
+                try {
+
+                    FileWriter fileWriter =
+                            new FileWriter(file2, true);
+
+                    BufferedWriter bufferedWriter =
+                            new BufferedWriter(fileWriter);
+
+
+                    bufferedWriter.newLine();
+                    bufferedWriter.write("Person File:");
+                    bufferedWriter.newLine();
+                    bufferedWriter.write(TextField_Name.getText() + ".txt");
+
+
+                    bufferedWriter.close();
+                } catch (IOException ex) {
+                    System.out.println(
+                            "Error writing to file '"
+                                    + file_User + "'");
+
+                }
+
+                String[] files = new String[8];
+                String file_Name = TextField_Name.getText() + ".txt";
+
+                File file = new File(System.getProperty("user.dir") + "/person/" + file_Name);
+
+                try {
+
+                    FileWriter fileWriter2 =
+                            new FileWriter(file);
+
+                    BufferedWriter bufferedWriter2 =
+                            new BufferedWriter(fileWriter2);
+
+                    bufferedWriter2.write("Person Information:");
+                    bufferedWriter2.newLine();
+                    bufferedWriter2.write("-----------------------------");
+                    bufferedWriter2.newLine();
+                    bufferedWriter2.write("Name:");
+                    bufferedWriter2.newLine();
+                    bufferedWriter2.write(TextField_Name.getText());
+                    bufferedWriter2.newLine();
+                    bufferedWriter2.write("Date of Birth:");
+                    bufferedWriter2.newLine();
+                    bufferedWriter2.write(TextField_DOB.getText());
+                    bufferedWriter2.newLine();
+                    bufferedWriter2.write("Email:");
+                    bufferedWriter2.newLine();
+                    bufferedWriter2.write(TextField_Email.getText());
+
+                    bufferedWriter2.close();
+
+                    first_Login.dispose();
+                } catch (IOException ex) {
+
+
+                }
+
+                driver newDriver = new driver(file);
+
+            }
+        });
+    }
+
+    public void newDriver(){
+
+        String temp;
+        String temp2;
+
+        File folder = new File(System.getProperty("user.dir") + "/person");
+        File[] listOfFiles = folder.listFiles();
+
+        final DefaultListModel truckList = new DefaultListModel();
+
+        for (int i = 0; i < listOfFiles.length; i++){
+
+            temp = listOfFiles[i].getName();
+            temp2 = temp.replace(".txt", "");
+
+            truckList.addElement(temp2);
+
+        }
+
+        //------------------------------------------------------------------------------
+
+        JFrame edit_Truck = new JFrame("WagserCo.");
+        edit_Truck.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        JPanel main_Panel = new JPanel(new BorderLayout());
+
+        edit_Truck.getContentPane().add(main_Panel);
+
+        JPanel north_Panel = new JPanel();
+        JPanel center_Panel = new JPanel(new FlowLayout());
+        JPanel south_Panel = new JPanel(new BorderLayout());
+
+        //------------------------------------------------------------------------------
+
+        JLabel label_Title = new JLabel("WagserCo.");
+        JLabel label_Title1 = new JLabel("Create Driver From:");
+
+        JList list_Truck = new JList(truckList);
+
+        JButton button_Edit = new JButton("Create");
+
+        //------------------------------------------------------------------------------
+
+        label_Title.setFont(new Font("Serif", Font.PLAIN, 35));
+        label_Title1.setFont(new Font("Serif", Font.PLAIN, 25));
+
+        list_Truck.setFont(new Font("Serif", Font.PLAIN, 17));
+
+        button_Edit.setFont(new Font("Serif", Font.PLAIN, 25));
+
+        list_Truck.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list_Truck.setVisibleRowCount(5);
+        list_Truck.setLayoutOrientation(JList.VERTICAL);
+        list_Truck.setSelectedIndex(0);
+
+        JScrollPane scroll = new JScrollPane(list_Truck);
+
+
+        //------------------------------------------------------------------------------
+
+        north_Panel.add(label_Title);
+        //north_Panel.add(label_Title1, BorderLayout.SOUTH);
+
+        center_Panel.add(scroll);
+        center_Panel.add(button_Edit);
+        center_Panel.setComponentOrientation(
+                ComponentOrientation.LEFT_TO_RIGHT);
+
+        //south_Panel.add(button_Edit);
+
+        //------------------------------------------------------------------------------
+
+        main_Panel.add(north_Panel, BorderLayout.NORTH);
+        main_Panel.add(center_Panel, BorderLayout.CENTER);
+        main_Panel.add(south_Panel, BorderLayout.SOUTH);
+
+        //------------------------------------------------------------------------------
+
+        Dimension ss = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension frameSize = new Dimension(200, 200);
+
+        edit_Truck.setBounds(ss.width / 2 - frameSize.width / 2,
+                ss.height / 2 - frameSize.height / 2,
+                frameSize.width, frameSize.height);
+
+        edit_Truck.setResizable(false);
+        edit_Truck.setMinimumSize(frameSize);
+        edit_Truck.setVisible(true);
+        edit_Truck.pack();
+
+        button_Edit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                int truck_LP_int = list_Truck.getSelectedIndex();
+                File truck_file = listOfFiles[truck_LP_int];
+                //String truck_file_name = truck_file.getName().replace(".txt", "");
+
+                person temp = new person(truck_file);
+
+                driver newDriver = new driver(temp);
+
+                edit_Truck.dispose();
+
+            }
+        });
+
+    }
+
+    public void edit_Driver(){
+
+        String temp;
+        String temp2;
+
+        File folder = new File(System.getProperty("user.dir") + "/driver");
+        File[] listOfFiles = folder.listFiles();
+
+        final DefaultListModel truckList = new DefaultListModel();
+
+        for (int i = 0; i < listOfFiles.length; i++){
+
+            temp = listOfFiles[i].getName();
+            temp2 = temp.replace(".txt", "");
+
+            truckList.addElement(temp2);
+
+        }
+
+        //------------------------------------------------------------------------------
+
+        JFrame edit_Truck = new JFrame("WagserCo.");
+        edit_Truck.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        JPanel main_Panel = new JPanel(new BorderLayout());
+
+        edit_Truck.getContentPane().add(main_Panel);
+
+        JPanel north_Panel = new JPanel();
+        JPanel center_Panel = new JPanel(new FlowLayout());
+        JPanel south_Panel = new JPanel(new BorderLayout());
+
+        //------------------------------------------------------------------------------
+
+        JLabel label_Title = new JLabel("WagserCo.");
+        JLabel label_Title1 = new JLabel("Edit Driver");
+
+        JList list_Truck = new JList(truckList);
+
+        JButton button_Edit = new JButton("Edit");
+
+        //------------------------------------------------------------------------------
+
+        label_Title.setFont(new Font("Serif", Font.PLAIN, 35));
+        label_Title1.setFont(new Font("Serif", Font.PLAIN, 25));
+
+        list_Truck.setFont(new Font("Serif", Font.PLAIN, 17));
+
+        button_Edit.setFont(new Font("Serif", Font.PLAIN, 25));
+
+        list_Truck.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list_Truck.setVisibleRowCount(5);
+        list_Truck.setLayoutOrientation(JList.VERTICAL);
+        list_Truck.setSelectedIndex(0);
+
+        JScrollPane scroll = new JScrollPane(list_Truck);
+
+
+        //------------------------------------------------------------------------------
+
+        north_Panel.add(label_Title);
+        //north_Panel.add(label_Title1, BorderLayout.SOUTH);
+
+        center_Panel.add(scroll);
+        center_Panel.add(button_Edit);
+        center_Panel.setComponentOrientation(
+                ComponentOrientation.LEFT_TO_RIGHT);
+
+        //south_Panel.add(button_Edit);
+
+        //------------------------------------------------------------------------------
+
+        main_Panel.add(north_Panel, BorderLayout.NORTH);
+        main_Panel.add(center_Panel, BorderLayout.CENTER);
+        main_Panel.add(south_Panel, BorderLayout.SOUTH);
+
+        //------------------------------------------------------------------------------
+
+        Dimension ss = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension frameSize = new Dimension(200, 200);
+
+        edit_Truck.setBounds(ss.width / 2 - frameSize.width / 2,
+                ss.height / 2 - frameSize.height / 2,
+                frameSize.width, frameSize.height);
+
+        edit_Truck.setResizable(false);
+        edit_Truck.setMinimumSize(frameSize);
+        edit_Truck.setVisible(true);
+        edit_Truck.pack();
+
+        button_Edit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                int truck_LP_int = list_Truck.getSelectedIndex();
+                File truck_file = listOfFiles[truck_LP_int];
+                //String truck_file_name = truck_file.getName().replace(".txt", "");
+
+                driver temp = new driver(truck_file);
+
+                run.edit_Driver_step2(temp);
+
+                edit_Truck.dispose();
+
+            }
+        });
+
+    }
+
+    public void edit_Driver_step2(driver edit_driver){
+
+        JFrame edit_Truck = new JFrame("WagserCo.");
+        edit_Truck.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        JPanel main_Panel = new JPanel(new BorderLayout());
+        edit_Truck.getContentPane().add(main_Panel);
+
+        JPanel north_Panel = new JPanel();
+        JPanel center_Panel = new JPanel(new BorderLayout());
+        JPanel south_Panel = new JPanel();
+
+        JPanel center_Panel_North = new JPanel();
+        JPanel center_Panel_South = new JPanel(new BorderLayout());
+        JPanel center_Panel_South_North = new JPanel(new BorderLayout());
+        JPanel center_Panel_South_South = new JPanel(new BorderLayout());
+
+        //------------------------------------------------------------------------------
+
+        JLabel label_Title = new JLabel(edit_driver.get_Person_info().get_name());
+
+        JLabel label_edit_Tailgate_License_Plate = new JLabel("Truck:");
+
+        String temp3;
+        String temp2;
+
+        File folder = new File(System.getProperty("user.dir") + "/truck");
+        File[] listOfFiles = folder.listFiles();
+
+        final DefaultListModel truckList = new DefaultListModel();
+
+        for (int i = 0; i < listOfFiles.length; i++){
+
+            temp3 = listOfFiles[i].getName();
+            temp2 = temp3.replace(".txt", "");
+
+            truckList.addElement(temp2);
+
+        }
+
+        JList list_Truck = new JList(truckList);
+
+        JButton Button_edit = new JButton("Edit");
+
+        list_Truck.setFont(new Font("Serif", Font.PLAIN, 17));
+
+        list_Truck.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list_Truck.setVisibleRowCount(5);
+        list_Truck.setLayoutOrientation(JList.VERTICAL);
+        list_Truck.setSelectedIndex(0);
+
+        JScrollPane scroll = new JScrollPane(list_Truck);
+
+        //------------------------------------------------------------------------------
+
+        label_Title.setFont(new Font("Serif", Font.PLAIN, 35));
+
+        label_edit_Tailgate_License_Plate.setFont(new Font("Serif", Font.PLAIN, 20));
+
+        Button_edit.setFont(new Font("Serif", Font.PLAIN, 25));
+
+        //------------------------------------------------------------------------------
+
+        north_Panel.add(label_Title);
+
+        center_Panel_South_North.add(label_edit_Tailgate_License_Plate, BorderLayout.NORTH);
+        center_Panel_South_North.add(scroll, BorderLayout.CENTER);
+
+        south_Panel.add(Button_edit);
+
+        //------------------------------------------------------------------------------
+
+        main_Panel.add(north_Panel, BorderLayout.NORTH);
+
+        center_Panel.add(center_Panel_North, BorderLayout.NORTH);
+
+        center_Panel_South.add(center_Panel_South_North, BorderLayout.NORTH);
+        center_Panel_South.add(center_Panel_South_South, BorderLayout.CENTER);
+
+        center_Panel.add(center_Panel_South, BorderLayout.CENTER);
+
+        main_Panel.add(center_Panel, BorderLayout.CENTER);
+
+        main_Panel.add(south_Panel, BorderLayout.SOUTH);
+
+        //------------------------------------------------------------------------------
+
+        Dimension ss = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension frameSize = new Dimension(500, 200);
+
+        edit_Truck.setBounds(ss.width / 2 - frameSize.width / 2,
+                ss.height / 2 - frameSize.height / 2,
+                frameSize.width, frameSize.height);
+
+        edit_Truck.setResizable(false);
+        edit_Truck.setMinimumSize(frameSize);
+        edit_Truck.setVisible(true);
+        edit_Truck.pack();
+
+        Button_edit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                int truck_LP_int = list_Truck.getSelectedIndex();
+                File truck_file = listOfFiles[truck_LP_int];
+                //String truck_file_name = truck_file.getName().replace(".txt", "");
+
+                System.out.println("works");
+
+                truck temper = new truck(truck_file);
+
+                //System.out.println(temper.get_License_Plate());
+
+                edit_driver.change_Truck_Info(temper);
+
+                edit_driver.write(edit_driver);
+
+                edit_Truck.dispose();
 
             }
         });

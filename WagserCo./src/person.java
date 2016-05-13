@@ -1,7 +1,4 @@
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Created by pedrosilva on 4/25/16.
@@ -13,10 +10,55 @@ public class person {
 
     String email;
 
-    public person(String name, String dob){
+    public person(String name, String dob, String email){
 
         this.name = name;
         this.dob = dob;
+
+    }
+
+    public person(File person_info){
+
+        BufferedReader reader = null;
+
+        String[] files = new String[8];
+
+        try {
+
+            File file = person_info;
+
+            reader = new BufferedReader(new FileReader(file));
+
+            String line;
+
+
+
+            int i = 0;
+
+            while ((line = reader.readLine()) != null) {
+
+                files[i] = line;
+
+                i++;
+
+            }
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+        this.name = files[3];
+        this.dob = files[5];
 
     }
 
