@@ -82,7 +82,7 @@
       <file leaf-file-name="main_menu.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main_menu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
+            <state relative-caret-position="495">
               <caret line="1319" column="29" selection-start-line="1319" selection-start-column="29" selection-end-line="1319" selection-end-column="29" />
               <folding>
                 <element signature="docComment;class#main_menu#0" expanded="false" />
@@ -984,7 +984,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main_menu.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
+        <state relative-caret-position="495">
           <caret line="1319" column="29" selection-start-line="1319" selection-start-column="29" selection-end-line="1319" selection-end-column="29" />
           <folding>
             <element signature="docComment;class#main_menu#0" expanded="false" />
